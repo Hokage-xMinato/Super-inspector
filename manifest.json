@@ -1,17 +1,41 @@
 {
   "manifest_version": 3,
   "name": "Supercharged HTML Inspector",
-  "version": "1.0",
-  "description": "A powerful in-browser tool to inspect, explore, and analyze any webpage's HTML, styles, media, SEO, accessibility, and more.",
-  "permissions": ["scripting", "tabs", "activeTab", "clipboardWrite"],
+  "version": "2.0",
+  "description": "A dev inspector with real-time video sniffing, DOM overlays, AI tools, and more.",
+  "permissions": [
+    "tabs",
+    "scripting",
+    "webRequest",
+    "webRequestBlocking",
+    "activeTab",
+    "storage"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
   "action": {
     "default_popup": "popup.html",
+    "default_title": "Launch Super Inspector",
     "default_icon": {
       "16": "icon.png",
-      "32": "icon.png",
       "48": "icon.png",
       "128": "icon.png"
     }
   },
-  "host_permissions": ["<all_urls>"]
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  }
 }
