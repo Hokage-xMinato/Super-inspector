@@ -1,19 +1,18 @@
 {
   "manifest_version": 3,
   "name": "Supercharged HTML Inspector",
-  "version": "2.0",
-  "description": "A dev inspector with real-time video sniffing, DOM overlays, AI tools, and more.",
+  "version": "3.0",
+  "description": "A dev toolkit with media sniffing, DOM overlays, context menus, AI assist and more.",
   "permissions": [
     "tabs",
     "scripting",
     "webRequest",
     "webRequestBlocking",
+    "contextMenus",
     "activeTab",
     "storage"
   ],
-  "host_permissions": [
-    "<all_urls>"
-  ],
+  "host_permissions": ["<all_urls>"],
   "background": {
     "service_worker": "background.js"
   },
