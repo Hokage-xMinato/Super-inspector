@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>🧪 Supercharged HTML Inspector</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.css" />
+  <style>
+    :root {
+      --bg: #121212;
+      --text: #eee;
+      --accent: #00ffd5;
+      --panel: #1e1e2e;
+    }
+    body.light {
+      --bg: #f5f5f5;
+      --text: #111;
+      --accent: #0077cc;
+      --panel: #eaeaea;
+    }
+    body {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 20px;
+    }
+    .controls input, .controls button, .console input {
+      padding: 10px;
+      margin: 5px;
+      font-size: 1em;
+      border-radius: 6px;
+      border: none;
+    }
+    .controls input { width: 55%; }
+    .controls button, .console button {
+      background: var(--accent);
+      color: #000;
+      cursor: pointer;
+    }
+    pre {
+      background: #1e1e2e;
+      padding: 20px;
+      border-radius: 10px;
+      overflow-x: auto;
+    }
+    .panel {
+      background: var(--panel);
+      padding: 15px 20px;
+      margin-top: 20px;
+      border-radius: 8px;
+    }
+    .console-output {
+      font-family: monospace;
+      background: #000;
+      color: #0f0;
+      padding: 10px;
+      border-radius: 8px;
+      height: 150px;
+      overflow: auto;
+    }
+    .tree ul {
+      list-style: none;
+      padding-left: 20px;
+    }
+    .toggle-mode {
+      float: right;
+      cursor: pointer;
+      color: var(--accent);
+    }
+    @media (max-width: 700px) {
+      .controls input, .controls button {
+        width: 100%;
+        margin-bottom: 5px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="toggle-mode" onclick="document.body.classList.toggle('light')">🌘 Toggle Mode</div>
+    <h1>Supercharged HTML Inspector</h1>
+    <div class="controls">
+      <input id="urlInput" placeholder="Enter URL or drop it here" />
+      <button onclick="fetchSource()">Fetch</button>
+      <button onclick="copySource()">Copy HTML</button>
+      <button onclick="extractFiles()">Resources</button>
+      <button onclick="listImages()">Images</button>
+      <button onclick="autoScroll()">Auto-Scroll</button>
+      <button onclick="scanMedia()">Scan Media</button>
+      <button onclick="analyzeMeta()">SEO Meta</button>
+      <button onclick="scanAccessibility()">Accessibility</button>
+      <button onclick="estimateLoad()">Load Estimate</button>
+    </div>
+    <pre><code id="sourceCode" class="language-html">// Source will appear here...</code></pre>
+    <div class="panel" id="fileOutput"></div>
+    <div class="panel selector-tester">
+      <h3>🔎 Selector Tester</h3>
+      <input id="selectorInput" placeholder="CSS or XPath" />
+      <button onclick="runSelectorTest()">Find</button>
+      <div id="selectorResult"></div>
+    </div>
+    <div class="panel" id="domTreePanel">
+      <h3>🌲 DOM Explorer</h3>
+      <div id="domTree" class="tree"></div>
+    </div>
+    <div class="panel console">
+      <h3>🧠 Console</h3>
+      <input id="jsInput" placeholder="Run JS code..." />
+      <button onclick="runJS()">Run</button>
+      <div id="consoleOut" class="console-output"></div>
+    </div>
+    <div class="panel" id="networkLog"><h3>📡 Resource Log</h3></div>
+  </div>
+  <iframe id="sandbox" style="display:none;"></iframe>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
